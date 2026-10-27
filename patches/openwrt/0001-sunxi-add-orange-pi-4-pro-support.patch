@@ -1,0 +1,74 @@
+diff --git a/target/linux/sunxi/cortexa53/config-6.18 b/target/linux/sunxi/cortexa53/config-6.18
+index b90dd5adf7..784e37d82c 100644
+--- a/target/linux/sunxi/cortexa53/config-6.18
++++ b/target/linux/sunxi/cortexa53/config-6.18
+@@ -121,6 +121,7 @@ CONFIG_SUN50I_ERRATUM_UNKNOWN1=y
+ CONFIG_SUN50I_H616_CCU=y
+ CONFIG_SUN50I_H6_CCU=y
+ CONFIG_SUN50I_H6_R_CCU=y
++CONFIG_SUN55I_PCK600=y
+ # CONFIG_SUN55I_A523_CCU is not set
+ # CONFIG_SUN55I_A523_MCU_CCU is not set
+ # CONFIG_SUN55I_A523_R_CCU is not set
+diff --git a/target/linux/sunxi/cortexa53/target.mk b/target/linux/sunxi/cortexa53/target.mk
+index 02b31702ba..ca1bf78215 100644
+--- a/target/linux/sunxi/cortexa53/target.mk
++++ b/target/linux/sunxi/cortexa53/target.mk
+@@ -5,7 +5,7 @@
+ include $(TOPDIR)/rules.mk
+ 
+ ARCH:=aarch64
+-BOARDNAME:=Allwinner A64/H5/H6/H616
++BOARDNAME:=Allwinner A64/H5/H6/H616/A733
+ CPU_TYPE:=cortex-a53
+ KERNELNAME:=Image dtbs
+ FEATURES+=fpu
+\ No newline at end of file
+diff --git a/target/linux/sunxi/image/cortexa53.mk b/target/linux/sunxi/image/cortexa53.mk
+index 50b286a98f..3e2f8da76b 100644
+--- a/target/linux/sunxi/image/cortexa53.mk
++++ b/target/linux/sunxi/image/cortexa53.mk
+@@ -36,6 +36,30 @@ define Device/sun50i-h618
+   $(Device/sun50i)
+ endef
+ 
++define Device/sun60i-a733
++  SOC := sun60i-a733
++  $(Device/sun50i)
++endef
++
++define Build/sun60i-sdcard
++	rm -f $@.boot
++	mkfs.fat $@.boot -C $(FAT32_BLOCKS)
++
++	mcopy -i $@.boot $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-boot.scr ::boot.scr
++	mcopy -i $@.boot $(IMAGE_KERNEL) ::uImage
++	mcopy -i $@.boot $(DTS_DIR)/$(SUNXI_DTS).dtb ::sun60i-a733-orangepi-4-pro.dtb
++	[ -f $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-orangepiEnv.txt ] && \
++		mcopy -i $@.boot $(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-orangepiEnv.txt ::orangepiEnv.txt || true
++	./gen_sun60i_sdcard_img.sh $@ \
++		$@.boot \
++		$(IMAGE_ROOTFS) \
++		$(CONFIG_SUNXI_SD_BOOT_PARTSIZE) \
++		$(CONFIG_TARGET_ROOTFS_PARTSIZE) \
++		$(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-boot0_sdcard.fex \
++		$(STAGING_DIR_IMAGE)/$(DEVICE_NAME)-boot_package.fex
++	rm -f $@.boot
++endef
++
+ define Device/friendlyarm_nanopi-neo-plus2
+   DEVICE_VENDOR := FriendlyARM
+   DEVICE_MODEL := NanoPi NEO Plus2
+@@ -146,3 +170,12 @@ define Device/xunlong_orangepi-zero-plus
+   $(Device/sun50i-h5)
+ endef
+ TARGET_DEVICES += xunlong_orangepi-zero-plus
++
++define Device/xunlong_orangepi-4-pro
++  DEVICE_VENDOR := Xunlong
++  DEVICE_MODEL := Orange Pi 4 Pro
++  DEVICE_PACKAGES := uboot-orangepi-4-pro
++  $(Device/sun60i-a733)
++  IMAGE/sdcard.img.gz := sun60i-sdcard | append-metadata | gzip
++endef
++TARGET_DEVICES += xunlong_orangepi-4-pro

@@ -1,0 +1,8 @@
+CONFIG_TARGET_sunxi=y
+CONFIG_TARGET_sunxi_cortexa53=y
+CONFIG_TARGET_sunxi_cortexa53_DEVICE_xunlong_orangepi-4-pro=y
+CONFIG_PACKAGE_uboot-orangepi-4-pro=y
+# CONFIG_PACKAGE_kmod-cfg80211 is not set
+# CONFIG_PACKAGE_kmod-mac80211 is not set
+# CONFIG_PACKAGE_wpad-basic-mbedtls is not set
+# CONFIG_PACKAGE_wpad-basic-wolfssl is not set
