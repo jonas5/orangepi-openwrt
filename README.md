@@ -16,8 +16,10 @@ Official OpenWrt firmware and build harness for the **Orange Pi 4 Pro** powered 
 | **Bluetooth** | AIC8800D80 UART1 (`serial@2501000`) | **Excluded by Design** | Handled out-of-tree via standalone private driver package |
 | **Power Mgmt** | AXP8191 PMIC + PCK-600 | **Working** | Full frequency scaling and power domain gating |
 
-> **Wi-Fi / Bluetooth Architecture Note:**  
-> In accordance with modular deployment standards, Wi-Fi and Bluetooth drivers are **not included** in this base OpenWrt firmware image. The proprietary FullMAC AIC8800D80 Wi-Fi 6 driver stack and UART flow-control daemons are packaged separately in the private driver repository (`private-driver-pack`) to ensure clean kernel boundaries and zero boot hangs.
+> **Wi-Fi / Bluetooth Architecture & Driver Licenses:**  
+> The core OpenWrt base firmware and mainline Linux 6.18 kernel patches are 100% open source. The proprietary FullMAC AIC8800D80 Wi-Fi 6 driver stack and hardware acceleration modules are maintained out-of-tree. Driver licenses and standalone packages can be grabbed below:  
+>  
+> <a href="https://buymeacoffee.com/jonas5/e/588598" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="46" style="height: 46px !important;"></a>
 
 ---
 
@@ -167,15 +169,42 @@ picocom -b 115200 /dev/ttyUSB0
 
 ---
 
-## 7. Private Driver Pack Integration
+## 7. Private Driver Pack Integration (Wi-Fi 6 on OpenWrt)
 
-To bring up the AIC8800 Wi-Fi 6 or PowerVR Rogue GPU acceleration after booting into OpenWrt, obtain the standalone driver pack and load modules on demand:
+The onboard **AIC8800D80 Wi-Fi 6 (802.11ax) & Bluetooth 5.4** controller is kept in a separate standalone driver pack. It includes:
+- Kernel modules compiled specifically for OpenWrt 6.18: `cfg80211.ko`, `sunxi_rfkill.ko`, `aic8800_bsp.ko`, `aic8800_fdrv.ko`, `aic8800_btlpm.ko`
+- Official AIC8800D80 microcode firmware binaries (`/lib/firmware/aic8800d80/`)
+- Sequenced bring-up script (`/usr/local/bin/aic8800-start.sh`)
+- OpenWrt procd auto-boot service (`/etc/init.d/aic8800`)
+- Hardware authentication utility (`hw_verify`)
+
+### Grab Driver License
+
+<a href="https://buymeacoffee.com/jonas5/e/588598" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="46" style="height: 46px !important;"></a>
+
+### Instant 1-Command Installation on OpenWrt
+
+Once booted into OpenWrt with Ethernet connected, install the driver pack directly:
 
 ```bash
-# Example manual Wi-Fi initialization:
-insmod aic_load_fw.ko
-insmod aic8800_bsp.ko
-insmod aic8800_fdrv.ko
+wget -qO- https://raccoon.ing/opi4pro-openwrt-wifi-driverpack.tar.gz | tar -zxv
+cd opi4pro-openwrt-wifi
+./install.sh
+```
+
+The installer will:
+1. Verify the hardware license against the SoC factory eFuse SID.
+2. Deploy the kernel modules to `/lib/modules/$(uname -r)/`.
+3. Extract the firmware into `/lib/firmware/aic8800d80/`.
+4. Enable and start `/etc/init.d/aic8800`, initializing `wlan0`.
+
+To verify wireless status:
+```bash
+# Check interface:
+ip link show wlan0
+
+# Scan wireless networks:
+iw dev wlan0 scan
 ```
 
 ---
