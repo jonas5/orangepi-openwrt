@@ -98,9 +98,9 @@ An automated GitHub Actions workflow is provided in `.github/workflows/build.yml
 sudo apt-get update
 sudo apt-get install -y --no-install-recommends \
   build-essential clang flex bison g++ gawk gcc-multilib g++-multilib \
-  gettext git libncurses5-dev libssl-dev python3-distutils rsync unzip \
-  zlib1g-dev file wget curl zstd dosfstools mtools device-tree-compiler \
-  u-boot-tools libelf-dev libyaml-dev pkg-config
+  gettext git libncurses5-dev libssl-dev python3-setuptools python3-dev \
+  rsync unzip zlib1g-dev file wget curl zstd dosfstools mtools \
+  device-tree-compiler u-boot-tools libelf-dev libyaml-dev pkg-config
 ```
 
 ### Build Steps

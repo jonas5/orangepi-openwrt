@@ -15,9 +15,11 @@ echo "=== Applying Orange Pi 4 Pro patches to OpenWrt tree at: ${OPENWRT_DIR} ==
 
 # 1. Apply OpenWrt target modifications
 echo "Applying OpenWrt sunxi target patch..."
-patch -d "${OPENWRT_DIR}" -p1 -N --dry-run --silent < "${SCRIPT_DIR}/patches/openwrt/0001-sunxi-add-orange-pi-4-pro-support.patch" 2>/dev/null && \
-    patch -d "${OPENWRT_DIR}" -p1 < "${SCRIPT_DIR}/patches/openwrt/0001-sunxi-add-orange-pi-4-pro-support.patch" || \
+if patch -d "${OPENWRT_DIR}" -p1 -N --dry-run --silent < "${SCRIPT_DIR}/patches/openwrt/0001-sunxi-add-orange-pi-4-pro-support.patch" >/dev/null 2>&1; then
+    patch -d "${OPENWRT_DIR}" -p1 < "${SCRIPT_DIR}/patches/openwrt/0001-sunxi-add-orange-pi-4-pro-support.patch"
+else
     echo "OpenWrt target patch already applied or partially present, skipping."
+fi
 
 # 2. Install SD card layout script
 echo "Installing sun60i SD card image script..."
