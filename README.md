@@ -17,9 +17,9 @@ Official OpenWrt firmware and build harness for the **Orange Pi 4 Pro** powered 
 | **Power Mgmt** | AXP8191 PMIC + PCK-600 | **Working** | Full frequency scaling and power domain gating |
 
 > **Wi-Fi / Bluetooth Architecture & Driver Licenses:**  
-> The core OpenWrt base firmware and mainline Linux 6.18 kernel patches are 100% open source. The proprietary FullMAC AIC8800D80 Wi-Fi 6 driver stack and hardware acceleration modules are maintained out-of-tree. Driver licenses and standalone packages can be grabbed below:  
+> The core OpenWrt base firmware and mainline Linux 6.18 kernel patches are 100% open source. The proprietary FullMAC AIC8800D80 Wi-Fi 6 driver stack and hardware acceleration modules are maintained out-of-tree. Driver licenses and standalone packages can be grabbed below (€23.39 / ~$29.99 USD):  
 >  
-> <a href="https://buymeacoffee.com/jonas5/e/588598" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="46" style="height: 46px !important;"></a>
+> <a href="https://buymeacoffee.com/jonas5/e/591989" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="46" style="height: 46px !important;"></a>
 
 ---
 
@@ -178,9 +178,9 @@ The onboard **AIC8800D80 Wi-Fi 6 (802.11ax) & Bluetooth 5.4** controller is kept
 - OpenWrt procd auto-boot service (`/etc/init.d/aic8800`)
 - Hardware authentication utility (`hw_verify`)
 
-### Grab Driver License
+### Grab Driver License (€23.39 / ~$29.99 USD)
 
-<a href="https://buymeacoffee.com/jonas5/e/588598" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="46" style="height: 46px !important;"></a>
+<a href="https://buymeacoffee.com/jonas5/e/591989" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="46" style="height: 46px !important;"></a>
 
 ### Instant 1-Command Installation on OpenWrt
 
