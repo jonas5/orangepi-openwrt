@@ -17,7 +17,7 @@ Official OpenWrt firmware and build harness for the **Orange Pi 4 Pro** powered 
 | **Power Mgmt** | AXP8191 PMIC + PCK-600 | **Working** | Full frequency scaling and power domain gating |
 
 > **Wi-Fi / Bluetooth Architecture & Driver Licenses:**  
-> The core OpenWrt base firmware and mainline Linux 6.18 kernel patches are 100% open source. The proprietary FullMAC AIC8800D80 Wi-Fi 6 driver stack and hardware acceleration modules are maintained out-of-tree. Driver licenses and standalone packages can be grabbed below (€23.39 / ~$29.99 USD):  
+> The core OpenWrt base firmware and mainline Linux 6.18 kernel patches are 100% open source. The proprietary FullMAC AIC8800D80 Wi-Fi 6 driver stack and hardware acceleration modules are maintained out-of-tree. Driver licenses and standalone packages can be grabbed below :  
 >  
 > <a href="https://buymeacoffee.com/jonas5/e/591989" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="46" style="height: 46px !important;"></a>
 
