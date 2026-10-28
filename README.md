@@ -178,7 +178,7 @@ The onboard **AIC8800D80 Wi-Fi 6 (802.11ax) & Bluetooth 5.4** controller is kept
 - OpenWrt procd auto-boot service (`/etc/init.d/aic8800`)
 - Hardware authentication utility (`hw_verify`)
 
-### Grab Driver License (€23.39 / ~$29.99 USD)
+### Grab Driver License here
 
 <a href="https://buymeacoffee.com/jonas5/e/591989" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="46" style="height: 46px !important;"></a>
 
